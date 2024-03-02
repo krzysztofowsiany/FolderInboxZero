@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using FolderInboxZero.Core;
 
 namespace FolderInboxZero;
 
@@ -19,6 +20,7 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
+        builder.Services.RegisterCore();
         return builder.Build();
     }
 }
