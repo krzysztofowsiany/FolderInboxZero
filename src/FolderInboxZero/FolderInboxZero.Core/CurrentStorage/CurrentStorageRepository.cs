@@ -2,11 +2,17 @@
 
 namespace FolderInboxZero.Core.CurrentStorage;
 
-internal class CurrentStorageRepository
+public class CurrentStorageRepository
 {
+    private readonly SQLiteConnection _connection;
+
     public CurrentStorageRepository()
     {
-        var filename = Path.Combine(Directory.GetCurrentDirectory(), ".current_folder_database");
-        var conn = new SQLiteConnection(filename);
+        var flags = SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create;
+
+        _connection = new SQLiteConnection("current_folder_database", flags);
+        _connection.CreateTable<StorageTable>();
     }
+
+    public void AddStorages(string[] paths) => _connection.InsertAll(paths.Select(x => new StorageTable(x)));
 }
