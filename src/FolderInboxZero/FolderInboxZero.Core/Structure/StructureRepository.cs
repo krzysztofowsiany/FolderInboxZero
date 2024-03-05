@@ -2,11 +2,15 @@
 
 namespace FolderInboxZero.Core.Structure;
 
-internal class StructureRepository
+public class StructureRepository
 {
+    private readonly SQLiteConnection _connection;
+
     public StructureRepository()
     {
-        var filename = Path.Combine(FileSystem.AppDataDirectory, "structure.database");
-        var conn = new SQLiteConnection(filename);
+        var flags = SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create;
+        var dbPath = Path.Combine(FileSystem.AppDataDirectory, "structure.db3");
+
+        _connection = new SQLiteConnection(dbPath, flags);
     }
 }

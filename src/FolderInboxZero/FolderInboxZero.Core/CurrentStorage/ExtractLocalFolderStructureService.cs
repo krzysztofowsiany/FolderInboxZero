@@ -1,5 +1,6 @@
 ﻿namespace FolderInboxZero.Core.CurrentStorage;
 
-internal class ExtractLocalFolderStructureService
+public class ExtractLocalFolderStructureService
 {
+    public string[] GetStorageItems(string path) => Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
 }

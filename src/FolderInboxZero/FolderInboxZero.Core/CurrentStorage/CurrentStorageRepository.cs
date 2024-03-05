@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using static System.Environment;
 
 namespace FolderInboxZero.Core.CurrentStorage;
 
@@ -9,8 +10,8 @@ public class CurrentStorageRepository
     public CurrentStorageRepository()
     {
         var flags = SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create;
-
-        _connection = new SQLiteConnection("current_folder_database", flags);
+        var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "current_folder_database.db3");
+        _connection = new SQLiteConnection(dbPath, flags);
         _connection.CreateTable<StorageTable>();
     }
 

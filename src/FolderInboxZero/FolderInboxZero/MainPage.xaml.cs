@@ -11,10 +11,11 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         _currentStorageRepository = currentStorageRepository;
-        _currentStorageRepository.AddStorages(new string[] { "test" });
-    }
 
-    
+        var extractLocalFolderStructureService = new ExtractLocalFolderStructureService();
+        var items =  extractLocalFolderStructureService.GetStorageItems(AppDomain.CurrentDomain.BaseDirectory);
+        _currentStorageRepository.AddStorages(items);
+    }
 
     private void OnCounterClicked(object sender, EventArgs e)
     {
