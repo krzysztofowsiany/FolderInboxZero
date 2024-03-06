@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FolderInboxZero.MainPage">
+<pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:FolderInboxZero"
+                x:Class="FolderInboxZero.MainPage"
+                xmlns:vm="clr-namespace:FolderInboxZero.ViewModels"
+                x:TypeArguments="vm:FolderPickerViewModel"
+                x:DataType="vm:FolderPickerViewModel"
+                Title="FolderPicker">
 
     <ScrollView>
         <VerticalStackLayout
@@ -30,7 +35,11 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
+
+            <Button Command="{Binding PickFolderCommand}"
+                Text="Pick Folder using FolderPicker from DI Container"
+                HorizontalOptions="Center"/>
         </VerticalStackLayout>
     </ScrollView>
 
-</ContentPage>
+<pages:BasePage>

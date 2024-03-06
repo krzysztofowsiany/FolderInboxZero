@@ -1,31 +1,25 @@
-﻿using FolderInboxZero.Core.CurrentStorage;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Storage;
+using FolderInboxZero.Core.CurrentStorage;
+using FolderInboxZero.ViewModels;
 
 namespace FolderInboxZero;
 
-public partial class MainPage : ContentPage
+public partial class MainPage : BasePage<FolderPickerViewModel>
 {
     private readonly CurrentStorageRepository _currentStorageRepository;
-    int count = 0;
+    private readonly IFolderPicker _folderPicker;
 
-    public MainPage(CurrentStorageRepository currentStorageRepository)
+    public MainPage(FolderPickerViewModel viewModel) : base(viewModel)
     {
         InitializeComponent();
-        _currentStorageRepository = currentStorageRepository;
-
-        var extractLocalFolderStructureService = new ExtractLocalFolderStructureService();
-        var items =  extractLocalFolderStructureService.GetStorageItems(AppDomain.CurrentDomain.BaseDirectory);
-        _currentStorageRepository.AddStorages(items);
     }
 
-    private void OnCounterClicked(object sender, EventArgs e)
+    async Task PickFolder(CancellationToken cancellationToken)
     {
-        count++;
-
-        if (count == 1)
-            CounterBtn.Text = $"Clicked {count} time";
-        else
-            CounterBtn.Text = $"Clicked {count} times";
-
-        SemanticScreenReader.Announce(CounterBtn.Text);
+        var result = await _folderPicker.PickAsync(cancellationToken);
+        result.EnsureSuccess();
+        await Toast.Make($"Folder picked: Name - {result.Folder.Name}, Path - {result.Folder.Path}", ToastDuration.Long).Show(cancellationToken);
     }
 }
