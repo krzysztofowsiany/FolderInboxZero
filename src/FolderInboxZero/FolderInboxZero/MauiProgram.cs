@@ -2,6 +2,8 @@
 using FolderInboxZero.Core;
 using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Storage;
+using FolderInboxZero.ViewModels;
+using FolderInboxZero.ViewModels.Base;
 
 
 namespace FolderInboxZero;
@@ -20,7 +22,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        builder.Services.AddTransientWithShellRoute<MainPage, ViewModels.FolderPickerViewModel>();
+        builder.Services.AddTransientWithShellRoute<MainPage, FolderPickerViewModel>();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
@@ -28,5 +30,12 @@ public static class MauiProgram
         builder.Services.AddSingleton<IFolderPicker>(FolderPicker.Default);
         builder.Services.RegisterCore();
         return builder.Build();
+    }
+
+
+    static IServiceCollection AddTransientWithShellRoute<TPage, TViewModel>(this IServiceCollection services) where TPage : BasePage<TViewModel>
+                                                                                                                where TViewModel : BaseViewModel
+    {
+        return services.AddTransientWithShellRoute<TPage, TViewModel>(AppShell.GetPageRoute<TViewModel>());
     }
 }

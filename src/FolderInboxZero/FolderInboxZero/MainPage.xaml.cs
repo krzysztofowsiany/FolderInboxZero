@@ -13,7 +13,6 @@ public partial class MainPage : BasePage<FolderPickerViewModel>
 
     public MainPage(FolderPickerViewModel viewModel) : base(viewModel)
     {
-        InitializeComponent();
     }
 
     async Task PickFolder(CancellationToken cancellationToken)

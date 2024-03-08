@@ -1,13 +1,13 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Storage;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FolderInboxZero.Core.CurrentStorage;
+using FolderInboxZero.ViewModels.Base;
 
 namespace FolderInboxZero.ViewModels;
 
-public partial class FolderPickerViewModel : ObservableObject
+public partial class FolderPickerViewModel : BaseViewModel
 {
     readonly IFolderPicker _folderPicker;
     private readonly CurrentStorageRepository _currentStorageRepository;
