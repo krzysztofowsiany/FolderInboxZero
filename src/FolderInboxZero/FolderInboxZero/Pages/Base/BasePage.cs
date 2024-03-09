@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using FolderInboxZero.ViewModels.Base;
 using System.Diagnostics;
 
-namespace FolderInboxZero;
+namespace FolderInboxZero.Pages.Base;
 
-public abstract class BasePage<TViewModel> : BasePage where TViewModel : ObservableObject
+
+public abstract class BasePage<TViewModel> : BasePage where TViewModel : BaseViewModel
 {
     protected BasePage(TViewModel viewModel) : base(viewModel)
     {

@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Storage;
 using FolderInboxZero.Core.CurrentStorage;
+using FolderInboxZero.Pages.Base;
 using FolderInboxZero.ViewModels;
 
 namespace FolderInboxZero;

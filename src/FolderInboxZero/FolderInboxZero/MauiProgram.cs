@@ -4,6 +4,7 @@ using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Storage;
 using FolderInboxZero.ViewModels;
 using FolderInboxZero.ViewModels.Base;
+using FolderInboxZero.Pages.Base;
 
 
 namespace FolderInboxZero;
