@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:pages="clr-namespace:FolderInboxZero"
+                xmlns:pages="clr-namespace:FolderInboxZero.Pages.Base"
                 x:Class="FolderInboxZero.MainPage"
                 xmlns:vm="clr-namespace:FolderInboxZero.ViewModels"
-                x:TypeArguments="vm:FolderPickerViewModel"
-                x:DataType="vm:FolderPickerViewModel"
+                x:TypeArguments="vm:MainPageViewModel"
+                x:DataType="vm:MainPageViewModel"
                 Title="FolderPicker">
 
     <VerticalStackLayout Spacing="12">
 
         <Button Command="{Binding PickFolderCommand}"
-                Text="Pick Folder using FolderPicker from DI Container"
+                Text="Pick Folder for clean"
                 HorizontalOptions="Center"/>
     </VerticalStackLayout>
 </pages:BasePage>

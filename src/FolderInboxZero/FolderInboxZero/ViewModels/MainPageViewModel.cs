@@ -7,20 +7,15 @@ using FolderInboxZero.ViewModels.Base;
 
 namespace FolderInboxZero.ViewModels;
 
-public partial class FolderPickerViewModel : BaseViewModel
+public partial class MainPageViewModel : BaseViewModel
 {
     readonly IFolderPicker _folderPicker;
     private readonly CurrentStorageRepository _currentStorageRepository;
 
-    public FolderPickerViewModel(IFolderPicker folderPicker, CurrentStorageRepository currentStorageRepository)
+    public MainPageViewModel(IFolderPicker folderPicker, CurrentStorageRepository currentStorageRepository)
     {
         _folderPicker = folderPicker;
 
-        _currentStorageRepository = currentStorageRepository;
-
-        var extractLocalFolderStructureService = new Core.CurrentStorage.ExtractLocalFolderStructureService();
-        var items = extractLocalFolderStructureService.GetStorageItems(AppDomain.CurrentDomain.BaseDirectory);
-        _currentStorageRepository.AddStorages(items);
         _currentStorageRepository = currentStorageRepository;
     }
 
@@ -30,6 +25,12 @@ public partial class FolderPickerViewModel : BaseViewModel
         var folderPickerResult = await _folderPicker.PickAsync(cancellationToken);
         if (folderPickerResult.IsSuccessful)
         {
+            var extractLocalFolderStructureService = new ExtractLocalFolderStructureService();
+            var items = extractLocalFolderStructureService.GetStorageItems(folderPickerResult.Folder.Path);
+            _currentStorageRepository.SetCurrentDirectory(folderPickerResult.Folder.Path);
+            _currentStorageRepository.Connect();
+            _currentStorageRepository.AddStorages(items);
+
             await Toast.Make($"Folder picked: Name - {folderPickerResult.Folder.Name}, Path - {folderPickerResult.Folder.Path}", ToastDuration.Long).Show(cancellationToken);
         }
         else

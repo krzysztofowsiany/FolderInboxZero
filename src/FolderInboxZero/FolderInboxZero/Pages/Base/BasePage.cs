@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using FolderInboxZero.ViewModels.Base;
+﻿using FolderInboxZero.ViewModels.Base;
 using System.Diagnostics;
 
 namespace FolderInboxZero.Pages.Base;

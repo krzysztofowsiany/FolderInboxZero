@@ -63,10 +63,4 @@
 	  <ProjectReference Include="..\FolderInboxZero.Core\FolderInboxZero.Core.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <MauiXaml Update="Pages\FolderPickerPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	</ItemGroup>
-
 </Project>

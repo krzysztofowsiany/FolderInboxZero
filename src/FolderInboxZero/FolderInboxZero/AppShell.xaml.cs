@@ -9,7 +9,7 @@ public partial class AppShell : Shell
 {
     static readonly IReadOnlyDictionary<Type, Type> viewModelMappings = new Dictionary<Type, Type>(
     [
-        CreateViewModelMapping<FolderPickerPage, FolderPickerViewModel>(),
+        CreateViewModelMapping<MainPage, MainPageViewModel>(),
     ]);
 
     public AppShell() => InitializeComponent();

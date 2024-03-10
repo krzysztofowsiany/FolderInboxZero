@@ -23,7 +23,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        builder.Services.AddTransientWithShellRoute<MainPage, FolderPickerViewModel>();
+        builder.Services.AddTransientWithShellRoute<MainPage, MainPageViewModel>();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
