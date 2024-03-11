@@ -1,6 +1,6 @@
 ﻿namespace FolderInboxZero.Core.CurrentStorage;
 
-internal enum StorageStatus
+public enum StorageStatus
 {
     ToDo = 0
 }

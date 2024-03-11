@@ -23,19 +23,17 @@ public partial class MainPageViewModel : BaseViewModel
     async Task PickFolder(CancellationToken cancellationToken)
     {
         var folderPickerResult = await _folderPicker.PickAsync(cancellationToken);
-        if (folderPickerResult.IsSuccessful)
-        {
-            var extractLocalFolderStructureService = new ExtractLocalFolderStructureService();
-            var items = extractLocalFolderStructureService.GetStorageItems(folderPickerResult.Folder.Path);
-            _currentStorageRepository.SetCurrentDirectory(folderPickerResult.Folder.Path);
-            _currentStorageRepository.Connect();
-            _currentStorageRepository.AddStorages(items);
+        if (!folderPickerResult.IsSuccessful) return;
 
-            await Toast.Make($"Folder picked: Name - {folderPickerResult.Folder.Name}, Path - {folderPickerResult.Folder.Path}", ToastDuration.Long).Show(cancellationToken);
-        }
-        else
-        {
-            await Toast.Make($"Folder is not picked, {folderPickerResult.Exception.Message}").Show(cancellationToken);
-        }
+        _currentStorageRepository.SetCurrentDirectory(folderPickerResult.Folder.Path);
+        _currentStorageRepository.Connect();
+
+        var currentStorageTableBuilder = new CurrentStorageTableStructureBuilder();
+        currentStorageTableBuilder.GetStorageItems(folderPickerResult.Folder.Path);
+
+        _currentStorageRepository.AddStorages(currentStorageTableBuilder.StorageItems);
+
+        await Toast.Make($"Folder picked: Name - {folderPickerResult.Folder.Name}, Path - {folderPickerResult.Folder.Path}", ToastDuration.Long).Show(cancellationToken);
+        return;
     }
 }

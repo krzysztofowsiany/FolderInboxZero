@@ -10,12 +10,12 @@ public class CurrentStorageRepository
 
     public CurrentStorageRepository() => _path = AppDomain.CurrentDomain.BaseDirectory;
 
-    public void AddStorages(string[] paths) => _connection?.InsertAll(paths.Select(x => new StorageTable(x)));
+    public void AddStorages(IEnumerable<StorageTable> storageItems) => _connection?.InsertAll(storageItems);
 
 
     public void Connect()
     {
-        var dbPath = Path.Combine(_path, "current_folder_database.db3");
+        var dbPath = Path.Combine(_path, ".current_folder_database.db3");
         _connection = new SQLiteConnection(dbPath, Flags);
         _connection.CreateTable<StorageTable>();
     }

@@ -1,3 +1,3 @@
 ﻿namespace FolderInboxZero.Core.CurrentStorage;
 
-internal record StorageTable (string Path, StorageStatus Status = StorageStatus.ToDo);
+public record StorageTable (string Path, Guid ParentId, Guid Id, StorageStatus Status = StorageStatus.ToDo);
