@@ -2,5 +2,8 @@
 
 public enum StorageStatus
 {
-    ToDo = 0
+    ToDo = 0,
+    InProgress = 1,
+    Related = 2,
+    Finished = 3,
 }
