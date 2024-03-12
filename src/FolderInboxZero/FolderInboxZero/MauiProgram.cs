@@ -5,6 +5,7 @@ using CommunityToolkit.Maui.Storage;
 using FolderInboxZero.ViewModels;
 using FolderInboxZero.ViewModels.Base;
 using FolderInboxZero.Pages.Base;
+using FolderInboxZero.Pages;
 
 
 namespace FolderInboxZero;
@@ -24,6 +25,7 @@ public static class MauiProgram
             });
 
         builder.Services.AddTransientWithShellRoute<MainPage, MainPageViewModel>();
+        builder.Services.AddTransientWithShellRoute<SettingsPage, SettingsViewModel>();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

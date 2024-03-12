@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:FolderInboxZero.Pages.Base"
+             x:Class="FolderInboxZero.Pages.SettingsPage"
+             xmlns:vm="clr-namespace:FolderInboxZero.ViewModels"
+             x:TypeArguments="vm:SettingsViewModel"
+             x:DataType="vm:SettingsViewModel"
+             Title="Settings">
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</pages:BasePage>

@@ -36,4 +36,10 @@ public partial class MainPageViewModel : BaseViewModel
         await Toast.Make($"Folder picked: Name - {folderPickerResult.Folder.Name}, Path - {folderPickerResult.Folder.Path}", ToastDuration.Long).Show(cancellationToken);
         return;
     }
+
+    [RelayCommand]
+    async Task Settings(CancellationToken cancellationToken)
+    {
+        return;
+    }
 }

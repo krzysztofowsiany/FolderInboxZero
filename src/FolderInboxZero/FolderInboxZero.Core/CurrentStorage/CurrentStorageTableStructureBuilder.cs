@@ -8,13 +8,23 @@ public class CurrentStorageTableStructureBuilder
 
     public void GetStorageItems(string path, Guid parentId = default)
     {
+        GetDirectories(path, parentId);
+
+        GetFiles(path, parentId);
+    }
+
+    private void GetDirectories(string path, Guid parentId)
+    {
         var directory = new StorageTable(path, parentId, Guid.NewGuid());
         _storageItems.Add(directory);
 
         var rootDicrectiories = Directory.GetDirectories(path);
         foreach (var rootDirectory in rootDicrectiories)
             GetStorageItems(rootDirectory, directory.Id);
+    }
 
+    private void GetFiles(string path, Guid parentId)
+    {
         var files = Directory.GetFiles(path);
         foreach (var file in files)
         {
