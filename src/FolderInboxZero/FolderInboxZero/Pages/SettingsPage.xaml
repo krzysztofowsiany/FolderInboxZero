@@ -12,5 +12,9 @@
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        
+        <Button Command="{Binding BackCommand}"
+          Text="Back to main"
+          HorizontalOptions="Center"/>
     </VerticalStackLayout>
 </pages:BasePage>

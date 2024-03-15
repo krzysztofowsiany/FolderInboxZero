@@ -40,6 +40,6 @@ public partial class MainPageViewModel : BaseViewModel
     [RelayCommand]
     async Task Settings(CancellationToken cancellationToken)
     {
-        await Shell.Current.GoToAsync("//Settings");
+        await Shell.Current.GoToAsync("//SettingsPage");
     }
 }
