@@ -9,12 +9,26 @@
              Title="Settings">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="Folder Inbox Zero Settings"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        
+
+        <Label 
+            Text="Folder Inbox Zero Settings"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" />
+        <Label 
+            Text="{Binding CurrentInboxFolder}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" />
+
+        <Button Command="{Binding PickInboxFolderCommand}"
+          Text="Pick Inbox Folder"
+          HorizontalOptions="Start"/>
+
         <Button Command="{Binding BackCommand}"
           Text="Back to main"
-          HorizontalOptions="Center"/>
+          VerticalOptions="End" 
+          HorizontalOptions="End"/>
     </VerticalStackLayout>
 </pages:BasePage>

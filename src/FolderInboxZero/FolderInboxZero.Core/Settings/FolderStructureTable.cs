@@ -1,0 +1,1 @@
+﻿public record FolderStructureTable(string Path, Guid ParentId, Guid Id);
