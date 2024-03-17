@@ -26,6 +26,7 @@ public static class MauiProgram
 
         builder.Services.AddTransientWithShellRoute<MainPage, MainPageViewModel>();
         builder.Services.AddTransientWithShellRoute<SettingsPage, SettingsViewModel>();
+        builder.Services.AddTransientWithShellRoute<InboxPage, InboxViewModel>();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

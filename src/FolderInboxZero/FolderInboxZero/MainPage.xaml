@@ -9,12 +9,8 @@
                 Title="FolderPicker">
 
     <VerticalStackLayout Spacing="12">
-        <Button Command="{Binding PickFolderCommand}"
-                Text="Pick Folder for clean"
-                HorizontalOptions="Center"/>
-
-        <Button Command="{Binding SettingsCommand}"
-                Text="Settings"
-                HorizontalOptions="Center"/>
+        <Button Command="{Binding ProcessInboxCommand}" Text="Process inbox" HorizontalOptions="Center"/>
+        <Button Command="{Binding PickFolderCommand}" Text="Pick Folder for clean" HorizontalOptions="Center"/>
+        <Button Command="{Binding SettingsCommand}" Text="Settings" HorizontalOptions="Center"/>
     </VerticalStackLayout>
 </pages:BasePage>

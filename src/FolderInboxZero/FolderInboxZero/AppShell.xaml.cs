@@ -11,6 +11,7 @@ public partial class AppShell : Shell
     [
         CreateViewModelMapping<MainPage, MainPageViewModel>(),
         CreateViewModelMapping<SettingsPage, SettingsViewModel>(),
+        CreateViewModelMapping<InboxPage, InboxViewModel>(),
     ]);
 
     public AppShell() => InitializeComponent();

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:FolderInboxZero.Pages.Base"
+             x:Class="FolderInboxZero.Pages.InboxPage"
+             xmlns:vm="clr-namespace:FolderInboxZero.ViewModels"
+             x:TypeArguments="vm:InboxViewModel"
+             x:DataType="vm:InboxViewModel"
+             Title="Inbox">
+    <VerticalStackLayout>
+        <Label 
+            Text="Folder Inbox"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Button Command="{Binding BackCommand}"
+          Text="Back to main"
+          VerticalOptions="End" 
+          HorizontalOptions="End"/>
+    </VerticalStackLayout>
+</pages:BasePage>

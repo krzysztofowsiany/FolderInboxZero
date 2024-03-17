@@ -38,6 +38,14 @@ public partial class MainPageViewModel : BaseViewModel
     }
 
     [RelayCommand]
+    async Task ProcessInbox(CancellationToken cancellationToken)
+    {
+        await Shell.Current.GoToAsync("//InboxPage");
+
+        return;
+    }
+
+    [RelayCommand]
     async Task Settings(CancellationToken cancellationToken)
     {
         await Shell.Current.GoToAsync("//SettingsPage");
