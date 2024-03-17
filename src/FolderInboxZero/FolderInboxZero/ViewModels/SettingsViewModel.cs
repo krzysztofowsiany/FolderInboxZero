@@ -3,13 +3,18 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using FolderInboxZero.Core.Settings;
 using FolderInboxZero.ViewModels.Base;
+using System.Collections.ObjectModel;
 
 namespace FolderInboxZero.ViewModels;
 
 public partial class SettingsViewModel : BaseViewModel
 {
+
     [ObservableProperty]
     public string currentInboxFolder = "Not Selected";
+
+    public TreeNode SelectedNode { get; set; }
+    public ObservableCollection<TreeNode> Nodes { get; set; } = new();
 
     private Dictionary<string, string> _configurations;
 
@@ -22,6 +27,14 @@ public partial class SettingsViewModel : BaseViewModel
         _structureRepository = structureRepository;
 
         LoadSettings();
+        Nodes.Add(new TreeNode("A")
+        {
+            Children =
+            {
+                new TreeNode("A.1"),
+                new TreeNode("A.2"),
+            }
+        });
     }
 
     private void LoadSettings()

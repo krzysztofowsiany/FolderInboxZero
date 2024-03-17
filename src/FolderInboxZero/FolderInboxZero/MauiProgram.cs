@@ -6,6 +6,7 @@ using FolderInboxZero.ViewModels;
 using FolderInboxZero.ViewModels.Base;
 using FolderInboxZero.Pages.Base;
 using FolderInboxZero.Pages;
+using UraniumUI;
 
 
 namespace FolderInboxZero;
@@ -18,6 +19,8 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .UseUraniumUI()
+            .UseUraniumUIMaterial()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

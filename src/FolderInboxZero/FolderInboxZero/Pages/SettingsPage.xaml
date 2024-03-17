@@ -5,6 +5,7 @@
              x:Class="FolderInboxZero.Pages.SettingsPage"
              xmlns:vm="clr-namespace:FolderInboxZero.ViewModels"
              x:TypeArguments="vm:SettingsViewModel"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              x:DataType="vm:SettingsViewModel"
              Title="Settings">
     <VerticalStackLayout>
@@ -25,10 +26,11 @@
         <Button Command="{Binding PickInboxFolderCommand}"
           Text="Pick Inbox Folder"
           HorizontalOptions="Start"/>
-
         <Button Command="{Binding BackCommand}"
           Text="Back to main"
           VerticalOptions="End" 
           HorizontalOptions="End"/>
+
+        <material:TreeView ItemsSource="{Binding Nodes}" SelectionMode="Single" SelectedItems="{Binding SelectedNode}" />
     </VerticalStackLayout>
 </pages:BasePage>
