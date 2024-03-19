@@ -1,6 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using UraniumUI;
+
 namespace FolderInboxZero.ViewModels.Base;
 
-public abstract partial class BaseViewModel : ObservableObject
+public abstract partial class BaseViewModel : UraniumBindableObject
 {
 }

@@ -1,18 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using UraniumUI;
 
 namespace FolderInboxZero.ViewModels;
 
-public class TreeNode
+public class TreeNode : UraniumBindableObject
 {
-    public TreeNode()
-    {
-    }
-    
-    public TreeNode(string name)
-    {
-        Name = name;
-    }
-
-    public virtual string Name { get; set; }
-    public virtual IList<TreeNode> Children { get; set; } = new ObservableCollection<TreeNode>();
+    public required string Name { get; set; }
+    public ObservableCollection<TreeNode> Children { get; set; } = [];
 }

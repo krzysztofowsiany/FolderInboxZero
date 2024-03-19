@@ -7,7 +7,7 @@
              x:TypeArguments="vm:InboxViewModel"
              x:DataType="vm:InboxViewModel"
              Title="Inbox">
-    <VerticalStackLayout>
+    <VerticalStackLayout Spacing="12">
         <Label 
             Text="Folder Inbox"
             VerticalOptions="Center" 

@@ -5,32 +5,43 @@
              x:Class="FolderInboxZero.Pages.SettingsPage"
              xmlns:vm="clr-namespace:FolderInboxZero.ViewModels"
              x:TypeArguments="vm:SettingsViewModel"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-             x:DataType="vm:SettingsViewModel"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             BindingContext="{uranium:Inject {Type vm:SettingsViewModel}}"
              Title="Settings">
-    <VerticalStackLayout>
-        <Label 
-            Text="Folder Inbox Zero Settings"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
 
-        <Label 
-            Text="Folder Inbox Zero Settings"
-            VerticalOptions="Center" 
-            HorizontalOptions="Start" />
-        <Label 
-            Text="{Binding CurrentInboxFolder}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Start" />
+    <VerticalStackLayout Spacing="12">
+        <Label Text="Folder Inbox Zero Settings" VerticalOptions="Center" HorizontalOptions="Center" />
+        <Label Text="Current Inbox Folder" VerticalOptions="Center" HorizontalOptions="Start" />
 
-        <Button Command="{Binding PickInboxFolderCommand}"
-          Text="Pick Inbox Folder"
-          HorizontalOptions="Start"/>
+        <Label Text="{Binding CurrentInboxFolder}" VerticalOptions="Center" HorizontalOptions="Start" />
+        <Button Command="{Binding PickInboxFolderCommand}" Text="Pick Inbox Folder" HorizontalOptions="Start"/>
+
+        <Label Text="{Binding DestinationBaseFolder}" VerticalOptions="Center" HorizontalOptions="Start" />
+        <Button Command="{Binding PickDestinationBaseFolderCommand}" Text="Pick Inbox Folder" HorizontalOptions="Start"/>
+
+        <material:TextField Text="{Binding NewFolderName}"/>
+        <Button Command="{Binding AddCommand}"
+            Text="Add folder"
+            VerticalOptions="End" 
+            HorizontalOptions="End"/>
+
+        <material:TreeView ItemsSource="{Binding Nodes}" SelectionMode="Single" SelectedItem="{Binding SelectedNode}">
+            <material:TreeView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout Spacing="5">
+                        <Image Source="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static m:MaterialRegular.Folder}, Color={StaticResource Primary}}" />
+                        <Label Text="{Binding Name}" FontAttributes="Bold" />
+                        <Label Text="{Binding Children.Count, StringFormat='({0})'}" />
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </material:TreeView.ItemTemplate>
+        </material:TreeView>
+
         <Button Command="{Binding BackCommand}"
-          Text="Back to main"
-          VerticalOptions="End" 
-          HorizontalOptions="End"/>
-
-        <material:TreeView ItemsSource="{Binding Nodes}" SelectionMode="Single" SelectedItems="{Binding SelectedNode}" />
+            Text="Back to main"
+            VerticalOptions="End" 
+            HorizontalOptions="End"/>
     </VerticalStackLayout>
 </pages:BasePage>

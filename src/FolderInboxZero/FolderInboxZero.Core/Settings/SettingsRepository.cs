@@ -16,12 +16,18 @@ public class SettingsRepository
         _connection.CreateTable<FolderStructureTable>();
     }
 
-    public void SaveInboxFolder(string currentInboxFolder)
+    public void SaveInboxFolder(string currentInboxFolder) =>
+        AddConfiguration(ConfigurationParams.CurrentInboxFolder, currentInboxFolder);
+
+    public void SaveDestinationBaseFolder(string destinationBaseFolder) =>
+        AddConfiguration(ConfigurationParams.DestinationBaseFolder, destinationBaseFolder);
+
+    private void AddConfiguration(string key, string value)
     {
         _connection?.InsertOrReplace(new ConfigurationTable()
         {
-            Key = ConfigurationParams.CurrentInboxFolder,
-            Value = currentInboxFolder
+            Key = key,
+            Value = value
         });
     }
 
