@@ -9,8 +9,6 @@ namespace FolderInboxZero.ViewModels;
 public partial class SettingsViewModel : BaseViewModel
 {
     public string CurrentInboxFolder { get; set; } = "Not Selected";
-    public string DestinationBaseFolder { get; set; } = "Not Selected";
-    
     public string NewFolderName { get; set; }
     public TreeNode SelectedNode { get; set; }
     public ObservableCollection<TreeNode> Nodes { get; set; } = [];
@@ -28,10 +26,14 @@ public partial class SettingsViewModel : BaseViewModel
         LoadSettings();
     }
 
-    private void CreateRootNode()
+    private void CreateBaseDestinationFolder(string path)
     {
-        if (!string.IsNullOrEmpty(DestinationBaseFolder))
-            Nodes.Add(new TreeNode() { Name = DestinationBaseFolder });
+        if (!string.IsNullOrEmpty(path))
+        {
+            var newNode = new TreeNode() { Name = path };
+            Nodes.Add(newNode);
+            _structureRepository.AddStuctureFolder(newNode.Id, newNode.Name, default);
+        }
     }
 
     private void LoadSettings()
@@ -40,9 +42,6 @@ public partial class SettingsViewModel : BaseViewModel
 
         if (_configurations.ContainsKey(ConfigurationParams.CurrentInboxFolder))
             CurrentInboxFolder = _configurations[ConfigurationParams.CurrentInboxFolder];
-
-        if (_configurations.ContainsKey(ConfigurationParams.DestinationBaseFolder))
-            DestinationBaseFolder = _configurations[ConfigurationParams.DestinationBaseFolder];
     }
 
     [RelayCommand]
@@ -50,8 +49,11 @@ public partial class SettingsViewModel : BaseViewModel
     {
         if (!string.IsNullOrEmpty(NewFolderName))
         {
-            SelectedNode?.Children.Add(new TreeNode() { Name = NewFolderName });
+            var newNode = new TreeNode() { Name = NewFolderName };
+            SelectedNode?.Children.Add(newNode);
             NewFolderName = string.Empty;
+
+            _structureRepository.AddStuctureFolder(newNode.Id, newNode.Name, SelectedNode.Id);
         }
     }
 
@@ -85,9 +87,6 @@ public partial class SettingsViewModel : BaseViewModel
         var folderPickerResult = await _folderPicker.PickAsync(cancellationToken);
         if (!folderPickerResult.IsSuccessful) return;
 
-        DestinationBaseFolder = folderPickerResult.Folder.Path;
-        _structureRepository.SaveDestinationBaseFolder(DestinationBaseFolder);
-
-        CreateRootNode();
+        CreateBaseDestinationFolder(folderPickerResult.Folder.Path);
     }
 }

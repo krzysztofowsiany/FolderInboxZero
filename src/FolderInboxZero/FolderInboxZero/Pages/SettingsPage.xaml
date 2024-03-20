@@ -18,9 +18,7 @@
         <Label Text="{Binding CurrentInboxFolder}" VerticalOptions="Center" HorizontalOptions="Start" />
         <Button Command="{Binding PickInboxFolderCommand}" Text="Pick Inbox Folder" HorizontalOptions="Start"/>
 
-        <Label Text="{Binding DestinationBaseFolder}" VerticalOptions="Center" HorizontalOptions="Start" />
-        <Button Command="{Binding PickDestinationBaseFolderCommand}" Text="Pick Inbox Folder" HorizontalOptions="Start"/>
-
+        <Button Command="{Binding PickDestinationBaseFolderCommand}" Text="Add base destination folder" HorizontalOptions="Start"/>
         <material:TextField Text="{Binding NewFolderName}"/>
         <Button Command="{Binding AddCommand}"
             Text="Add folder"

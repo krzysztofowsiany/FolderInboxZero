@@ -19,9 +19,6 @@ public class SettingsRepository
     public void SaveInboxFolder(string currentInboxFolder) =>
         AddConfiguration(ConfigurationParams.CurrentInboxFolder, currentInboxFolder);
 
-    public void SaveDestinationBaseFolder(string destinationBaseFolder) =>
-        AddConfiguration(ConfigurationParams.DestinationBaseFolder, destinationBaseFolder);
-
     private void AddConfiguration(string key, string value)
     {
         _connection?.InsertOrReplace(new ConfigurationTable()
@@ -38,5 +35,15 @@ public class SettingsRepository
         return configurations
             .Select(x => new KeyValuePair<string, string>(x.Key, x.Value))
             .ToDictionary();
+    }
+
+    public void AddStuctureFolder(Guid id, string path, Guid parentId)
+    {
+        _connection?.InsertOrReplace(new FolderStructureTable()
+        {
+            Id = id,
+            ParentId = parentId,
+            Path =  path,
+        });
     }
 }
