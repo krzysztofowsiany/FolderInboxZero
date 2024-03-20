@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Storage;
 using CommunityToolkit.Mvvm.Input;
 using FolderInboxZero.Core.Settings;
+using FolderInboxZero.Services;
 using FolderInboxZero.ViewModels.Base;
 using System.Collections.ObjectModel;
 
@@ -17,23 +18,26 @@ public partial class SettingsViewModel : BaseViewModel
 
     readonly IFolderPicker _folderPicker;
     private readonly SettingsRepository _structureRepository;
+    private readonly LoadFolderStructureService _loadFolderStructureService;
 
-    public SettingsViewModel(IFolderPicker folderPicker, SettingsRepository structureRepository)
+    public SettingsViewModel(IFolderPicker folderPicker, SettingsRepository structureRepository, LoadFolderStructureService loadFolderStructureService)
     {
         _folderPicker = folderPicker;
         _structureRepository = structureRepository;
+        _loadFolderStructureService = loadFolderStructureService;
 
         LoadSettings();
+        _loadFolderStructureService.LoadStructure(Nodes);
     }
 
     private void CreateBaseDestinationFolder(string path)
     {
-        if (!string.IsNullOrEmpty(path))
-        {
-            var newNode = new TreeNode() { Name = path };
-            Nodes.Add(newNode);
-            _structureRepository.AddStuctureFolder(newNode.Id, newNode.Name, default);
-        }
+        if (string.IsNullOrEmpty(path))
+            return;
+        
+        var newNode = new TreeNode() { Name = path };
+        Nodes.Add(newNode);
+        _structureRepository.AddStuctureFolder(newNode.Id, newNode.Name, default);
     }
 
     private void LoadSettings()
@@ -47,22 +51,41 @@ public partial class SettingsViewModel : BaseViewModel
     [RelayCommand]
     async Task Add(CancellationToken cancellationToken)
     {
-        if (!string.IsNullOrEmpty(NewFolderName))
-        {
-            var newNode = new TreeNode() { Name = NewFolderName };
-            SelectedNode?.Children.Add(newNode);
-            NewFolderName = string.Empty;
+        if (string.IsNullOrEmpty(NewFolderName))
+            return;
+        
+        var newNode = new TreeNode() { Name = NewFolderName };
+        SelectedNode?.Children.Add(newNode);
+        NewFolderName = string.Empty;
 
-            _structureRepository.AddStuctureFolder(newNode.Id, newNode.Name, SelectedNode.Id);
-        }
+        _structureRepository.AddStuctureFolder(newNode.Id, newNode.Name, SelectedNode.Id);
     }
 
     [RelayCommand]
     async Task Delete(CancellationToken cancellationToken)
     {
-        //  if (SelectedNode!=null)
+        if (SelectedNode == null) return;
+        
+        var ids = SearchAllSubIds(SelectedNode);
 
-        //  SelectedNode?.Children.Add(new TreeNode(NewFolderName));
+        _structureRepository.RemoveStructureByIds(ids);
+        _loadFolderStructureService.LoadStructure(Nodes);
+    }
+
+    private List<Guid> SearchAllSubIds(TreeNode selectedNode)
+    {
+        var ids = new List<Guid>
+        {
+            selectedNode.Id
+        };
+
+        foreach (var chilrdlen in selectedNode.Children)
+        {
+            var childrenIds = SearchAllSubIds(chilrdlen);
+            ids.AddRange(childrenIds);
+        }
+
+        return ids;
     }
 
     [RelayCommand]

@@ -43,7 +43,23 @@ public class SettingsRepository
         {
             Id = id,
             ParentId = parentId,
-            Path =  path,
+            Path = path,
         });
+    }
+
+    public IEnumerable<IGrouping<Guid, FolderStructureTable>> LoadStructure()
+    {
+        var folders = _connection?.Query<FolderStructureTable>("SELECT * FROM FolderStructureTable");
+
+        return folders.GroupBy(x => x.ParentId);
+    }
+
+
+    public void RemoveStructureByIds(List<Guid> ids)
+    {
+        var stringIds = ids.Select(x => $"'{x}'");
+
+        var joinedIds = string.Join(",", stringIds);
+        _connection?.Execute($"DELETE FROM FolderStructureTable WHERE id IN({joinedIds})");
     }
 }

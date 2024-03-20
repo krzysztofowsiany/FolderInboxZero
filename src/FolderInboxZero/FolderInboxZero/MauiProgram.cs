@@ -7,6 +7,7 @@ using FolderInboxZero.ViewModels.Base;
 using FolderInboxZero.Pages.Base;
 using FolderInboxZero.Pages;
 using UraniumUI;
+using FolderInboxZero.Services;
 
 
 namespace FolderInboxZero;
@@ -31,6 +32,7 @@ public static class MauiProgram
         builder.Services.AddTransientWithShellRoute<MainPage, MainPageViewModel>();
         builder.Services.AddTransientWithShellRoute<SettingsPage, SettingsViewModel>();
         builder.Services.AddTransientWithShellRoute<InboxPage, InboxViewModel>();
+        builder.Services.RegisterServices();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

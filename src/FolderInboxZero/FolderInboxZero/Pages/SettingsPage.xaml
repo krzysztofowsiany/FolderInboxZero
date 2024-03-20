@@ -25,6 +25,11 @@
             VerticalOptions="End" 
             HorizontalOptions="End"/>
 
+        <Button Command="{Binding DeleteCommand}"
+            Text="Delete folder"
+            VerticalOptions="End" 
+            HorizontalOptions="End"/>
+
         <material:TreeView ItemsSource="{Binding Nodes}" SelectionMode="Single" SelectedItem="{Binding SelectedNode}">
             <material:TreeView.ItemTemplate>
                 <DataTemplate>
