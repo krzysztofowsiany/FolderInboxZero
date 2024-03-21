@@ -4,16 +4,21 @@ namespace FolderInboxZero.Core.Settings;
 
 public class SettingsRepository
 {
-    private readonly SQLiteConnection _connection;
+    private const  SQLiteOpenFlags Flags = SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create;
+    private readonly string _dbPath;
 
     public SettingsRepository()
     {
-        var flags = SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create;
-        var dbPath = Path.Combine(FileSystem.AppDataDirectory, "settings.db3");
+        _dbPath = Path.Combine(FileSystem.AppDataDirectory, "settings.db3");
+        CreateTables();
+    }
 
-        _connection = new SQLiteConnection(dbPath, flags);
-        _connection.CreateTable<ConfigurationTable>();
-        _connection.CreateTable<FolderStructureTable>();
+    private void CreateTables()
+    {
+        using var connection = new SQLiteConnection(_dbPath, Flags);
+        connection.CreateTable<ConfigurationTable>();
+        connection.CreateTable<FolderStructureTable>();
+        connection?.Close();
     }
 
     public void SaveInboxFolder(string currentInboxFolder) =>
@@ -21,16 +26,20 @@ public class SettingsRepository
 
     private void AddConfiguration(string key, string value)
     {
-        _connection?.InsertOrReplace(new ConfigurationTable()
+        using var connection = new SQLiteConnection(_dbPath, Flags);
+        connection?.InsertOrReplace(new ConfigurationTable()
         {
             Key = key,
             Value = value
         });
+        connection?.Close();
     }
 
     public Dictionary<string, string> LoadSettings()
     {
-        var configurations = _connection?.Query<ConfigurationTable>("SELECT * FROM ConfigurationTable");
+        using var connection = new SQLiteConnection(_dbPath, Flags);
+        var configurations = connection?.Query<ConfigurationTable>("SELECT * FROM ConfigurationTable");
+        connection?.Close();
 
         return configurations
             .Select(x => new KeyValuePair<string, string>(x.Key, x.Value))
@@ -39,17 +48,21 @@ public class SettingsRepository
 
     public void AddStuctureFolder(Guid id, string path, Guid parentId)
     {
-        _connection?.InsertOrReplace(new FolderStructureTable()
+        using var connection = new SQLiteConnection(_dbPath, Flags);
+        connection?.InsertOrReplace(new FolderStructureTable()
         {
             Id = id,
             ParentId = parentId,
             Path = path,
         });
+        connection?.Close();
     }
 
     public IEnumerable<IGrouping<Guid, FolderStructureTable>> LoadStructure()
     {
-        var folders = _connection?.Query<FolderStructureTable>("SELECT * FROM FolderStructureTable");
+        using var connection = new SQLiteConnection(_dbPath, Flags);
+        var folders = connection?.Query<FolderStructureTable>("SELECT * FROM FolderStructureTable");
+        connection?.Close();
 
         return folders.GroupBy(x => x.ParentId);
     }
@@ -57,9 +70,11 @@ public class SettingsRepository
 
     public void RemoveStructureByIds(List<Guid> ids)
     {
-        var stringIds = ids.Select(x => $"'{x}'");
-
-        var joinedIds = string.Join(",", stringIds);
-        _connection?.Execute($"DELETE FROM FolderStructureTable WHERE id IN({joinedIds})");
+        var joinedIds = string.Join(",", ids.Select(x => $"'{x}'"));
+        var query = $"DELETE FROM FolderStructureTable WHERE id IN({joinedIds})";
+        
+        using var connection = new SQLiteConnection(_dbPath, Flags);
+        connection?.Execute(query);
+        connection?.Close();
     }
 }
