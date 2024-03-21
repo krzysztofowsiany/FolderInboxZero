@@ -1,4 +1,6 @@
-﻿namespace FolderInboxZero.Core.CurrentStorage;
+﻿using SQLite;
+
+namespace FolderInboxZero.Core.CurrentStorage;
 
 public class CurrentStorageTableStructureBuilder
 {
@@ -8,19 +10,21 @@ public class CurrentStorageTableStructureBuilder
 
     public void GetStorageItems(string path, Guid parentId = default)
     {
-        GetDirectories(path, parentId);
+        parentId = GetDirectories(path, parentId);
 
         GetFiles(path, parentId);
     }
 
-    private void GetDirectories(string path, Guid parentId)
+    private Guid GetDirectories(string path, Guid parentId)
     {
-        var directory = new StorageTable(path, parentId, Guid.NewGuid());
+        var directory = new StorageTable(path, parentId, Guid.NewGuid(), StorageType.Folder);
         _storageItems.Add(directory);
 
         var rootDicrectiories = Directory.GetDirectories(path);
         foreach (var rootDirectory in rootDicrectiories)
             GetStorageItems(rootDirectory, directory.Id);
+
+        return directory.Id;
     }
 
     private void GetFiles(string path, Guid parentId)
@@ -28,7 +32,7 @@ public class CurrentStorageTableStructureBuilder
         var files = Directory.GetFiles(path);
         foreach (var file in files)
         {
-            var fileItem = new StorageTable(file, parentId, Guid.NewGuid());
+            var fileItem = new StorageTable(file, parentId, Guid.NewGuid(), StorageType.File);
             _storageItems.Add(fileItem);
         }
     }

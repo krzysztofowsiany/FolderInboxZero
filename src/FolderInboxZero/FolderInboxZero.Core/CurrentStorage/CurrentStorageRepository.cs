@@ -16,6 +16,10 @@ public class CurrentStorageRepository
     public void Connect()
     {
         var dbPath = Path.Combine(_path, ".current_folder_database.db3");
+
+        if (File.Exists(dbPath))
+            File.Delete(dbPath);
+
         _connection = new SQLiteConnection(dbPath, Flags);
         _connection.CreateTable<StorageTable>();
     }

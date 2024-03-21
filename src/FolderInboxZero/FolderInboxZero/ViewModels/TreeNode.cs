@@ -7,5 +7,6 @@ public class TreeNode : UraniumBindableObject
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public required string Name { get; set; }
+    public bool IsDirectory { get; set; }
     public ObservableCollection<TreeNode> Children { get; set; } = [];
 }

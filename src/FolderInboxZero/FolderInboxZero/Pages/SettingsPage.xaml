@@ -2,13 +2,13 @@
 <pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:FolderInboxZero.Pages.Base"
-             x:Class="FolderInboxZero.Pages.SettingsPage"
              xmlns:vm="clr-namespace:FolderInboxZero.ViewModels"
-             x:TypeArguments="vm:SettingsViewModel"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              BindingContext="{uranium:Inject {Type vm:SettingsViewModel}}"
+             x:Class="FolderInboxZero.Pages.SettingsPage"
+             x:TypeArguments="vm:SettingsViewModel"
              Title="Settings">
 
     <VerticalStackLayout Spacing="12">

@@ -2,16 +2,48 @@
 <pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:FolderInboxZero.Pages.Base"
-             x:Class="FolderInboxZero.Pages.InboxPage"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:FolderInboxZero.ViewModels"
-             x:TypeArguments="vm:InboxViewModel"
-             x:DataType="vm:InboxViewModel"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             x:Class="FolderInboxZero.Pages.InboxPage"
+             x:TypeArguments="vm:InboxViewModel"           
+             BindingContext="{uranium:Inject {Type vm:InboxViewModel}}"
              Title="Inbox">
+
+    <pages:BasePage.Behaviors>
+        <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
+    </pages:BasePage.Behaviors>
+    
     <VerticalStackLayout Spacing="12">
         <Label 
             Text="Folder Inbox"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+
+        <material:TreeView ItemsSource="{Binding Nodes}" SelectionMode="Single" SelectedItem="{Binding SelectedNode}">
+            <material:TreeView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                        <Image>
+                            <Image.Triggers>
+                                <DataTrigger TargetType="Image" Binding="{Binding IsDirectory}" Value="true">
+                                    <Setter Property="Source" Value="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static m:MaterialRegular.Folder}, Color={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}}" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Image" Binding="{Binding IsDirectory}" Value="False">
+                                    <Setter Property="Source" Value="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static m:MaterialRegular.Insert_drive_file}, Color={AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray300}}}" />
+                                </DataTrigger>
+                            </Image.Triggers>
+                        </Image>
+
+                        <Label Text="{Binding Name}" FontAttributes="Bold" />
+                        <Label Text="{Binding Children.Count, StringFormat='({0})'}" />
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </material:TreeView.ItemTemplate>
+        </material:TreeView>
 
         <Button Command="{Binding BackCommand}"
           Text="Back to main"
