@@ -22,7 +22,6 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-
         <material:TreeView ItemsSource="{Binding Nodes}" SelectionMode="Single" SelectedItem="{Binding SelectedNode}">
             <material:TreeView.ItemTemplate>
                 <DataTemplate>
