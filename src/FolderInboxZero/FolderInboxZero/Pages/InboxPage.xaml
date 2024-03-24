@@ -39,6 +39,8 @@
 
                         <Label Text="{Binding Name}" FontAttributes="Bold" />
                         <Label Text="{Binding Children.Count, StringFormat='({0})'}" />
+                        <Button Command="{Binding OpenCommand}" CommandParameter="{Binding Name}" Text="Open"/>
+
                     </HorizontalStackLayout>
                 </DataTemplate>
             </material:TreeView.ItemTemplate>

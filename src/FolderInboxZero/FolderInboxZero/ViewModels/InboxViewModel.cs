@@ -88,6 +88,13 @@ public partial class InboxViewModel : BaseViewModel
     }
 
     [RelayCommand]
+    async Task Open(string name)
+    {
+        await Launcher.Default.OpenAsync(new OpenFileRequest("Open File", new ReadOnlyFile(name)));
+    }
+
+
+    [RelayCommand]
     async Task Back(CancellationToken cancellationToken)
     {
         await Shell.Current.GoToAsync("//MainPage");
