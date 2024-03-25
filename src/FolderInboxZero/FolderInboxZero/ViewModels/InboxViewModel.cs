@@ -88,9 +88,9 @@ public partial class InboxViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    async Task Open(string name)
+    void Open(object name)
     {
-        await Launcher.Default.OpenAsync(new OpenFileRequest("Open File", new ReadOnlyFile(name)));
+     //   await Launcher.Default.OpenAsync(new OpenFileRequest("Open File", new ReadOnlyFile(name)));
     }
 
 

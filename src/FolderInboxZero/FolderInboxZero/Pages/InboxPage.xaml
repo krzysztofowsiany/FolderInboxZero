@@ -15,14 +15,27 @@
     <pages:BasePage.Behaviors>
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </pages:BasePage.Behaviors>
-    
-    <VerticalStackLayout Spacing="12">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="12">
         <Label 
             Text="Folder Inbox"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        <material:TreeView ItemsSource="{Binding Nodes}" SelectionMode="Single" SelectedItem="{Binding SelectedNode}">
+            <pages:BasePage.MenuBarItems>
+                <MenuBarItem Text="Media">
+                    <MenuFlyoutItem Text="Play">
+                        <MenuFlyoutItem.IconImageSource>
+                            <FontImageSource Glyph="&#x25B6;"
+                                 FontFamily="Arial" />
+                        </MenuFlyoutItem.IconImageSource>
+                    </MenuFlyoutItem>
+                    </MenuBarItem>
+                </pages:BasePage.MenuBarItems>
+
+
+                    <material:TreeView ItemsSource="{Binding Nodes}" SelectionMode="Single" SelectedItem="{Binding SelectedNode}">
             <material:TreeView.ItemTemplate>
                 <DataTemplate>
                     <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
@@ -51,4 +64,5 @@
           VerticalOptions="End" 
           HorizontalOptions="End"/>
     </VerticalStackLayout>
+    </ScrollView>
 </pages:BasePage>
