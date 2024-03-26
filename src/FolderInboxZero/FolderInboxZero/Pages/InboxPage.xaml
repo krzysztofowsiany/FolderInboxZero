@@ -16,53 +16,63 @@
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
     </pages:BasePage.Behaviors>
 
+    <pages:BasePage.MenuBarItems>
+        <MenuBarItem Text="Inbox">
+            <MenuFlyoutItem Text="Open">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="Enter"/>
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            
+            <MenuFlyoutItem Text="Move">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="c" Modifiers="Ctrl" />
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+
+            <MenuFlyoutItem Text="Delete">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="Space"/>
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+        </MenuBarItem>
+    </pages:BasePage.MenuBarItems>
+
+
+
     <ScrollView>
         <VerticalStackLayout Spacing="12">
-        <Label 
+            <Label 
             Text="Folder Inbox"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-            <pages:BasePage.MenuBarItems>
-                <MenuBarItem Text="Media">
-                    <MenuFlyoutItem Text="Play">
-                        <MenuFlyoutItem.IconImageSource>
-                            <FontImageSource Glyph="&#x25B6;"
-                                 FontFamily="Arial" />
-                        </MenuFlyoutItem.IconImageSource>
-                    </MenuFlyoutItem>
-                    </MenuBarItem>
-                </pages:BasePage.MenuBarItems>
+            <material:TreeView ItemsSource="{Binding Nodes}" SelectionMode="Single" SelectedItem="{Binding SelectedNode}">
+                <material:TreeView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                            <Image>
+                                <Image.Triggers>
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsDirectory}" Value="true">
+                                        <Setter Property="Source" Value="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static m:MaterialRegular.Folder}, Color={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}}" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsDirectory}" Value="False">
+                                        <Setter Property="Source" Value="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static m:MaterialRegular.Insert_drive_file}, Color={AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray300}}}" />
+                                    </DataTrigger>
+                                </Image.Triggers>
+                            </Image>
 
+                            <Label Text="{Binding Name}" FontAttributes="Bold" />
+                            <Label Text="{Binding Children.Count, StringFormat='({0})'}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </material:TreeView.ItemTemplate>
+            </material:TreeView>
 
-                    <material:TreeView ItemsSource="{Binding Nodes}" SelectionMode="Single" SelectedItem="{Binding SelectedNode}">
-            <material:TreeView.ItemTemplate>
-                <DataTemplate>
-                    <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
-                        <Image>
-                            <Image.Triggers>
-                                <DataTrigger TargetType="Image" Binding="{Binding IsDirectory}" Value="true">
-                                    <Setter Property="Source" Value="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static m:MaterialRegular.Folder}, Color={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}}" />
-                                </DataTrigger>
-                                <DataTrigger TargetType="Image" Binding="{Binding IsDirectory}" Value="False">
-                                    <Setter Property="Source" Value="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static m:MaterialRegular.Insert_drive_file}, Color={AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray300}}}" />
-                                </DataTrigger>
-                            </Image.Triggers>
-                        </Image>
-
-                        <Label Text="{Binding Name}" FontAttributes="Bold" />
-                        <Label Text="{Binding Children.Count, StringFormat='({0})'}" />
-                        <Button Command="{Binding OpenCommand}" CommandParameter="{Binding Name}" Text="Open"/>
-
-                    </HorizontalStackLayout>
-                </DataTemplate>
-            </material:TreeView.ItemTemplate>
-        </material:TreeView>
-
-        <Button Command="{Binding BackCommand}"
+            <Button Command="{Binding BackCommand}"
           Text="Back to main"
           VerticalOptions="End" 
           HorizontalOptions="End"/>
-    </VerticalStackLayout>
+        </VerticalStackLayout>
     </ScrollView>
 </pages:BasePage>
