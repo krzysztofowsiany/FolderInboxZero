@@ -18,21 +18,21 @@
 
     <pages:BasePage.MenuBarItems>
         <MenuBarItem Text="Inbox">
-            <MenuFlyoutItem Text="Open">
+            <MenuFlyoutItem Text="Open" Command="{Binding OpenStorageCommand}">
                 <MenuFlyoutItem.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Enter"/>
                 </MenuFlyoutItem.KeyboardAccelerators>
             </MenuFlyoutItem>
-            
-            <MenuFlyoutItem Text="Move">
+
+            <MenuFlyoutItem Text="Organize" Command="{Binding OrganizeStorageCommand}">
                 <MenuFlyoutItem.KeyboardAccelerators>
-                    <KeyboardAccelerator Key="c" Modifiers="Ctrl" />
+                    <KeyboardAccelerator Key="Space" />
                 </MenuFlyoutItem.KeyboardAccelerators>
             </MenuFlyoutItem>
 
-            <MenuFlyoutItem Text="Delete">
+            <MenuFlyoutItem Text="Delete" Command="{Binding DeleteStorageCommand}">
                 <MenuFlyoutItem.KeyboardAccelerators>
-                    <KeyboardAccelerator Key="Space"/>
+                    <KeyboardAccelerator Key="Delete"/>
                 </MenuFlyoutItem.KeyboardAccelerators>
             </MenuFlyoutItem>
         </MenuBarItem>

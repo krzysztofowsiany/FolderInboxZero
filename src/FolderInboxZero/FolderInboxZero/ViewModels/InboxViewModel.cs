@@ -1,8 +1,12 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Storage;
+using CommunityToolkit.Mvvm.Input;
 using FolderInboxZero.Core.CurrentStorage;
 using FolderInboxZero.Core.Settings;
 using FolderInboxZero.ViewModels.Base;
 using System.Collections.ObjectModel;
+using System.Threading;
 
 namespace FolderInboxZero.ViewModels;
 
@@ -83,14 +87,28 @@ public partial class InboxViewModel : BaseViewModel
         _currentStorageRepository.AddStorages(currentStorageTableBuilder.StorageItems);
 
         FillTreeView(currentStorageTableBuilder.StorageItems);
-
         return;
     }
 
     [RelayCommand]
-    void Open(object name)
+    async Task OpenStorage()
     {
-     //   await Launcher.Default.OpenAsync(new OpenFileRequest("Open File", new ReadOnlyFile(name)));
+        if (SelectedNode == null)
+            return;
+
+        await Launcher.Default.OpenAsync(new OpenFileRequest("Open Storage", new ReadOnlyFile(SelectedNode.Name)));
+    }
+
+    [RelayCommand]
+    async Task OrganizeStorage(CancellationToken cancellationToken)
+    {
+        //   await Launcher.Default.OpenAsync(new OpenFileRequest("Open File", new ReadOnlyFile(name)));
+    }
+
+    [RelayCommand]
+    async Task DeleteStorage(CancellationToken cancellationToken)
+    {
+        //   await Launcher.Default.OpenAsync(new OpenFileRequest("Open File", new ReadOnlyFile(name)));
     }
 
 
