@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Storage;
 using CommunityToolkit.Mvvm.Input;
 using FolderInboxZero.Core.Settings;
+using FolderInboxZero.Models;
 using FolderInboxZero.Services;
 using FolderInboxZero.ViewModels.Base;
 using System.Collections.ObjectModel;

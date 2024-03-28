@@ -1,5 +1,5 @@
 ﻿using FolderInboxZero.Core.Settings;
-using FolderInboxZero.ViewModels;
+using FolderInboxZero.Models;
 using System.Collections.ObjectModel;
 
 namespace FolderInboxZero.Services;

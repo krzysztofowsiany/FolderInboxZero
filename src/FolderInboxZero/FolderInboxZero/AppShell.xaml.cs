@@ -1,4 +1,5 @@
-﻿using FolderInboxZero.Pages;
+﻿using FolderInboxZero.Inbox;
+using FolderInboxZero.Pages;
 using FolderInboxZero.Pages.Base;
 using FolderInboxZero.ViewModels;
 using FolderInboxZero.ViewModels.Base;

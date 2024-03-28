@@ -67,7 +67,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\InboxPage.xaml.cs">
+	  <Compile Update="Inbox\InboxPage.xaml.cs">
 	    <DependentUpon>InboxPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Pages\SettingsPage.xaml.cs">
@@ -76,7 +76,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\InboxPage.xaml">
+	  <MauiXaml Update="Inbox\InboxPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\SettingsPage.xaml">

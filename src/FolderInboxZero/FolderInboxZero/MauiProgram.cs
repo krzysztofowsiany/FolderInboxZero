@@ -8,6 +8,7 @@ using FolderInboxZero.Pages.Base;
 using FolderInboxZero.Pages;
 using UraniumUI;
 using FolderInboxZero.Services;
+using FolderInboxZero.Inbox;
 
 
 namespace FolderInboxZero;

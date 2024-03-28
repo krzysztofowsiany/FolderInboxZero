@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:FolderInboxZero.Pages.Base"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:vm="clr-namespace:FolderInboxZero.ViewModels"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
-             x:Class="FolderInboxZero.Pages.InboxPage"
-             x:TypeArguments="vm:InboxViewModel"           
-             BindingContext="{uranium:Inject {Type vm:InboxViewModel}}"
+             xmlns:pages="clr-namespace:FolderInboxZero.Pages.Base"
+             x:Class="FolderInboxZero.Inbox.InboxPage"
+             xmlns:local="clr-namespace:FolderInboxZero.Inbox"
+             x:TypeArguments="local:InboxViewModel"           
+             BindingContext="{uranium:Inject {Type local:InboxViewModel}}"
              Title="Inbox">
 
     <pages:BasePage.Behaviors>
@@ -30,7 +30,7 @@
                 </MenuFlyoutItem.KeyboardAccelerators>
             </MenuFlyoutItem>
 
-            <MenuFlyoutItem Text="Delete" Command="{Binding DeleteStorageCommand}">
+            <MenuFlyoutItem Text="Delete" Command="{Binding MarkToDeleteStorageCommand}">
                 <MenuFlyoutItem.KeyboardAccelerators>
                     <KeyboardAccelerator Key="Delete"/>
                 </MenuFlyoutItem.KeyboardAccelerators>
@@ -64,6 +64,8 @@
 
                             <Label Text="{Binding Name}" FontAttributes="Bold" />
                             <Label Text="{Binding Children.Count, StringFormat='({0})'}" />
+                            <Label Text="{Binding Status, Converter={local:StorageStatusConverter}}" FontAttributes="Bold" TextColor="Red"/>
+                            
                         </HorizontalStackLayout>
                     </DataTemplate>
                 </material:TreeView.ItemTemplate>

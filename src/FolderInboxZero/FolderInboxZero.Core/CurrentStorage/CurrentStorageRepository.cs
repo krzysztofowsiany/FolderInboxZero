@@ -25,4 +25,14 @@ public class CurrentStorageRepository
     }
 
     public void SetCurrentDirectory(string path) => _path = path;
+
+    public async Task SetStirageStatusTo(IEnumerable<Guid> nodesToUpdate, StorageStatus storageStatus)
+    {
+        var joinedIds = string.Join(",", nodesToUpdate.Select(x => $"'{x}'"));
+        var query = $"UPDATE StorageTable " +
+            $" SET Status = {storageStatus}" +
+            $" WHERE id IN({joinedIds})";
+
+        _connection?.Execute(query);
+    }
 }

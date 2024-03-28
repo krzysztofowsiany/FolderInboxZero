@@ -1,14 +1,11 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Maui.Storage;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using FolderInboxZero.Core.CurrentStorage;
 using FolderInboxZero.Core.Settings;
+using FolderInboxZero.Models;
 using FolderInboxZero.ViewModels.Base;
 using System.Collections.ObjectModel;
-using System.Threading;
 
-namespace FolderInboxZero.ViewModels;
+namespace FolderInboxZero.Inbox;
 
 public partial class InboxViewModel : BaseViewModel
 {
@@ -51,6 +48,7 @@ public partial class InboxViewModel : BaseViewModel
             {
                 Name = storage.Path,
                 Id = storage.Id,
+                Status = storage.Status,
                 IsDirectory = storage.Type == StorageType.Folder
             };
 
@@ -102,15 +100,29 @@ public partial class InboxViewModel : BaseViewModel
     [RelayCommand]
     async Task OrganizeStorage(CancellationToken cancellationToken)
     {
-        //   await Launcher.Default.OpenAsync(new OpenFileRequest("Open File", new ReadOnlyFile(name)));
     }
 
     [RelayCommand]
-    async Task DeleteStorage(CancellationToken cancellationToken)
+    async Task MarkToDeleteStorage(CancellationToken cancellationToken)
     {
-        //   await Launcher.Default.OpenAsync(new OpenFileRequest("Open File", new ReadOnlyFile(name)));
+        var nodesToUpdate = SelectAllNodes(SelectedNode);
+        
+        foreach (var node in nodesToUpdate)
+            node.Status = StorageStatus.ToDelete;
+
+        //   await _currentStorageRepository.SetStirageStatusTo(nodesToUpdate.Select(x => x.Id), StorageStatus.ToDelete);
+
+        OnPropertyChanged("Nodes");
     }
 
+    IEnumerable<TreeNode> SelectAllNodes(TreeNode node)
+    {
+        yield return node;
+
+        foreach (var children in node.Children)
+            foreach (var t in SelectAllNodes(children))
+                yield return t;
+    }
 
     [RelayCommand]
     async Task Back(CancellationToken cancellationToken)
