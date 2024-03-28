@@ -30,7 +30,7 @@ public class CurrentStorageRepository
     {
         var joinedIds = string.Join(",", nodesToUpdate.Select(x => $"'{x}'"));
         var query = $"UPDATE StorageTable " +
-            $" SET Status = {storageStatus}" +
+            $" SET Status = {(int)storageStatus}" +
             $" WHERE id IN({joinedIds})";
 
         _connection?.Execute(query);

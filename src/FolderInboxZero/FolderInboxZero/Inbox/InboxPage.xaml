@@ -51,6 +51,8 @@
                 <material:TreeView.ItemTemplate>
                     <DataTemplate>
                         <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                            <Label Text="{Binding Status, Converter={local:StorageStatusConverter}}" FontAttributes="Bold" TextColor="Red"/>
+
                             <Image>
                                 <Image.Triggers>
                                     <DataTrigger TargetType="Image" Binding="{Binding IsDirectory}" Value="true">
@@ -64,7 +66,6 @@
 
                             <Label Text="{Binding Name}" FontAttributes="Bold" />
                             <Label Text="{Binding Children.Count, StringFormat='({0})'}" />
-                            <Label Text="{Binding Status, Converter={local:StorageStatusConverter}}" FontAttributes="Bold" TextColor="Red"/>
                             
                         </HorizontalStackLayout>
                     </DataTemplate>

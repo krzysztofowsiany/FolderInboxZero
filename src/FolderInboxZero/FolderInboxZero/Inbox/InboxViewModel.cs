@@ -110,9 +110,7 @@ public partial class InboxViewModel : BaseViewModel
         foreach (var node in nodesToUpdate)
             node.Status = StorageStatus.ToDelete;
 
-        //   await _currentStorageRepository.SetStirageStatusTo(nodesToUpdate.Select(x => x.Id), StorageStatus.ToDelete);
-
-        OnPropertyChanged("Nodes");
+        await _currentStorageRepository.SetStirageStatusTo(nodesToUpdate.Select(x => x.Id), StorageStatus.ToDelete);
     }
 
     IEnumerable<TreeNode> SelectAllNodes(TreeNode node)
